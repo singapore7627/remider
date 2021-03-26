@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => NextPage('a')
+                            builder: (context) => NextPage('aa')
                           ),
                         );
                       },
