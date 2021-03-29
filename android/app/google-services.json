@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "110401087622",
+    "project_id": "wt-reminder-app",
+    "storage_bucket": "wt-reminder-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110401087622:android:ef473f32454b259bc14907",
+        "android_client_info": {
+          "package_name": "com.tartebonheur.reservation_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110401087622-985ve5tjkiv9om05pid626ut7seeoh63.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg00S453JOr_6Yj9xhGAKadHbCWbArK08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110401087622-985ve5tjkiv9om05pid626ut7seeoh63.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
