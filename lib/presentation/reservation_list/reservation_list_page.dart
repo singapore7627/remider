@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:reservation_manager/reservation_list_model.dart';
+import 'package:reservation_manager/presentation/reservation_list/reservation_list_model.dart';
 
 class ReservationListPage extends StatelessWidget {
   @override

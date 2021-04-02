@@ -1,8 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:reservation_manager/next_page.dart';
+import 'package:reservation_manager/presentation/next_page/next_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:reservation_manager/reservation_list_page.dart';
+import 'package:reservation_manager/presentation/reservation_list/reservation_list_page.dart';
 
 void main() {
   runApp(MyApp());

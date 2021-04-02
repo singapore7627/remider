@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:reservation_manager/reservation.dart';
+import 'package:reservation_manager/domain/reservation.dart';
 
 class ReservationListModel extends ChangeNotifier {
   List<Reservation> reservations = [];
