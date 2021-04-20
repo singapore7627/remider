@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reservation_manager/domain/reservation.dart';
@@ -9,11 +8,18 @@ class AddReservationPage extends StatelessWidget {
   AddReservationPage({this.reservation});
   @override
   Widget build(BuildContext context) {
+    final bool isUpdate = reservation != null;
+    final textEditingController = TextEditingController();
+
+    if (isUpdate) {
+      textEditingController.text = reservation.title;
+    }
+
     return ChangeNotifierProvider(
       create: (_) => AddReservationModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('予約一覧'),
+          title: Text(isUpdate ? '本を編集' : '本を追加'),
         ),
         body: Consumer<AddReservationModel>(
           builder: (context, model, child) {
@@ -22,50 +28,18 @@ class AddReservationPage extends StatelessWidget {
               child: Column(
                 children: [
                   TextField(
+                    controller: textEditingController,
                     onChanged: (text) {
                       model.reservationTitle = text;
                     },
                   ),
                   ElevatedButton(
-                    child: Text('追加する'),
+                    child: Text(isUpdate ? '更新する' : '追加する'),
                     onPressed: () async {
-                      List<String> errors =
-                          await model.addReservationToFireBase();
-                      await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          if (errors.length == 0) {
-                            return AlertDialog(
-                              title: Text('追加しました。'),
-                              actions: [
-                                TextButton(
-                                  child: Text('ok'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          } else {
-                            String message = '';
-                            errors.forEach((element) =>
-                                message = message + '\n' + element);
-                            return AlertDialog(
-                              title: Text(message),
-                              actions: [
-                                TextButton(
-                                  child: Text('ok'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          }
-                        },
-                      );
-                      if (errors.length == 0) {
-                        Navigator.of(context).pop();
+                      if (isUpdate) {
+                        await updateReservation(model, context);
+                      } else {
+                        await addReservation(model, context);
                       }
                     },
                   ),
@@ -76,5 +50,84 @@ class AddReservationPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future addReservation(AddReservationModel model, BuildContext context) async {
+    List<String> errors = await model.addReservationToFireBase();
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        if (errors.length == 0) {
+          return AlertDialog(
+            title: Text('追加しました。'),
+            actions: [
+              TextButton(
+                child: Text('ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          String message = '';
+          errors.forEach((element) => message = message + '\n' + element);
+          return AlertDialog(
+            title: Text(message),
+            actions: [
+              TextButton(
+                child: Text('ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      },
+    );
+    if (errors.length == 0) {
+      Navigator.of(context).pop();
+    }
+  }
+
+  Future updateReservation(
+      AddReservationModel model, BuildContext context) async {
+    List<String> errors = await model.updateReservation(reservation);
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        if (errors.length == 0) {
+          return AlertDialog(
+            title: Text('更新しました。'),
+            actions: [
+              TextButton(
+                child: Text('ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        } else {
+          String message = '';
+          errors.forEach((element) => message = message + '\n' + element);
+          return AlertDialog(
+            title: Text(message),
+            actions: [
+              TextButton(
+                child: Text('ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        }
+      },
+    );
+    if (errors.length == 0) {
+      Navigator.of(context).pop();
+    }
   }
 }

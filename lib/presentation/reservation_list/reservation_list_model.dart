@@ -8,9 +8,15 @@ class ReservationListModel extends ChangeNotifier {
   Future fetchReservations() async {
     final docs =
         await FirebaseFirestore.instance.collection('reservations').get();
-    final reservations =
-        docs.docs.map((doc) => Reservation(doc['title'])).toList();
+    final reservations = docs.docs.map((doc) => Reservation(doc)).toList();
     this.reservations = reservations;
     notifyListeners();
+  }
+
+  Future deleteReservation(Reservation reservation) async {
+    await FirebaseFirestore.instance
+        .collection('reservations')
+        .doc(reservation.documentID)
+        .delete();
   }
 }

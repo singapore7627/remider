@@ -21,4 +21,23 @@ class AddReservationModel extends ChangeNotifier {
     );
     return ret;
   }
+
+  Future<List<String>> updateReservation(Reservation reservation) async {
+    List<String> ret = [];
+    if (reservationTitle.isEmpty) {
+      ret.add('入力してください。');
+      ret.add('入力してください。');
+      return ret;
+    }
+    final document = FirebaseFirestore.instance
+        .collection('reservations')
+        .doc(reservation.documentID);
+    await document.update(
+      {
+        'title': reservationTitle,
+        'updateAt': Timestamp.now(),
+      },
+    );
+    return ret;
+  }
 }
