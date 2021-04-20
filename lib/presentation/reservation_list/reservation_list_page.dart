@@ -5,12 +5,15 @@ import 'package:reservation_manager/presentation/add_reservation/add_reservation
 import 'package:reservation_manager/presentation/add_reservation/add_reservation_page.dart';
 import 'package:reservation_manager/presentation/reservation_list/reservation_list_model.dart';
 
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 class ReservationListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => ReservationListModel()..fetchReservations(),
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text('予約一覧'),
         ),
@@ -44,7 +47,13 @@ class ReservationListPage extends StatelessWidget {
                             title: Text('本当に${reservation.title}を削除しますか？'),
                             actions: [
                               TextButton(
-                                child: Text('ok'),
+                                child: Text('no'),
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('yes'),
                                 onPressed: () async {
                                   Navigator.of(context).pop();
                                   await deleteReservation(
@@ -100,13 +109,13 @@ class ReservationListPage extends StatelessWidget {
     String title,
   ) async {
     showDialog(
-      context: context,
+      context: _scaffoldKey.currentContext,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
           actions: <Widget>[
             TextButton(
-              child: Text('削除しました。'),
+              child: Text('削除しました'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
