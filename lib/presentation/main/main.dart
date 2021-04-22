@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:reservation_manager/presentation/next_page/next_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reservation_manager/presentation/reservation_list/reservation_list_page.dart';
+import 'package:reservation_manager/presentation/signup/signup_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,11 +29,9 @@ class MyApp extends StatelessWidget {
             actions: [
               SizedBox(
                 width: 40,
-                child: FlatButton(
+                child: TextButton(
                   child: Icon(Icons.search),
-                  onPressed: () {
-                    // TODO
-                  },
+                  onPressed: () {},
                 ),
               ),
               SizedBox(
@@ -66,18 +65,28 @@ class MyApp extends StatelessWidget {
                       Column(
                         children: [
                           const Text('今日のフクロウ日記'),
-                          FlatButton(
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.video_call,
-                                  color: Colors.red,
+                          Builder(
+                            builder: (context) {
+                              return TextButton(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.video_call,
+                                      color: Colors.red,
+                                    ),
+                                    Text('登録する'),
+                                  ],
                                 ),
-                                Text('登録する'),
-                              ],
-                            ),
-                            onPressed: () {},
-                          )
+                                onPressed: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SignupPage()),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ],
                       )
                     ],
