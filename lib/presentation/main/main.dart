@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:reservation_manager/presentation/Login/Login_page.dart';
 import 'package:reservation_manager/presentation/next_page/next_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:reservation_manager/presentation/reservation_list/reservation_list_page.dart';
@@ -82,6 +83,28 @@ class MyApp extends StatelessWidget {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => SignupPage()),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          Builder(
+                            builder: (context) {
+                              return TextButton(
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.video_call,
+                                      color: Colors.red,
+                                    ),
+                                    Text('ログインする'),
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()),
                                   );
                                 },
                               );
