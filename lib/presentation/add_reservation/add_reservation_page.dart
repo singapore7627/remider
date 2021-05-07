@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reservation_manager/domain/reservation.dart';
 import 'package:reservation_manager/presentation/add_reservation/add_reservation_model.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
 
 class AddReservationPage extends StatelessWidget {
   final Reservation reservation;
@@ -52,7 +50,6 @@ class AddReservationPage extends StatelessWidget {
                   ElevatedButton(
                     child: Text(isUpdate ? '更新する' : '追加する'),
                     onPressed: () async {
-                      sendMail();
                       if (isUpdate) {
                         await updateReservation(model, context);
                       } else {
@@ -146,45 +143,5 @@ class AddReservationPage extends StatelessWidget {
     if (errors.length == 0) {
       Navigator.of(context).pop();
     }
-  }
-
-  sendMail() async {
-    String username = 'username@gmail.com';
-
-    final smtpServer = SmtpServer(
-      'smtp.mailtrap.io',
-      port: 465,
-      username: 'f3cd96a508e3c2',
-      password: '584ceb123689ef',
-    );
-    // Use the SmtpServer class to configure an SMTP server:
-    // final smtpServer = SmtpServer('smtp.domain.com');
-    // See the named arguments of SmtpServer for further configuration
-    // options.
-
-    // Create our message.
-    final message = Message()
-      ..from = Address(username, 'Your name')
-      ..recipients.add('takayoshi.watanabe@asvin.co.jp')
-      ..subject = 'Test Dart Mailer library :: 😀 :: ${DateTime.now()}'
-      ..text = 'This is the plain text.\nThis is line 2 of the text part.'
-      ..html = "<h1>Test</h1>\n<p>Hey! Here's some HTML content</p>";
-
-    try {
-      final sendReport = await send(message, smtpServer);
-      print('Message sent: ' + sendReport.toString());
-    } on MailerException catch (e) {
-      print('Message not sent.');
-      for (var p in e.problems) {
-        print('Problem: ${p.code}: ${p.msg}');
-      }
-    }
-    var connection = PersistentConnection(smtpServer);
-
-    // Send the first message
-    await connection.send(message);
-
-    // close the connection
-    await connection.close();
   }
 }
