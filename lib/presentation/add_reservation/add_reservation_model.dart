@@ -1,9 +1,19 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:reservation_manager/domain/reservation.dart';
 
 class AddReservationModel extends ChangeNotifier {
   String reservationTitle = '';
+  File imageFile;
+
+  Future showImagePicker() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    imageFile = File(pickedFile.path);
+  }
 
   Future<List<String>> addReservationToFireBase() async {
     List<String> ret = [];
@@ -39,5 +49,9 @@ class AddReservationModel extends ChangeNotifier {
       },
     );
     return ret;
+  }
+
+  Future uploadImage() async {
+    return '';
   }
 }

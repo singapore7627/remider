@@ -1,3 +1,7 @@
+import 'dart:html';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reservation_manager/domain/reservation.dart';
@@ -23,6 +27,9 @@ class ReservationListPage extends StatelessWidget {
             final listTiles = reservations
                 .map(
                   (reservation) => ListTile(
+                    leading: reservation.imageURL != null
+                        ? Image.network(reservation.imageURL)
+                        : Icon(Icons.agriculture),
                     title: Text(reservation.title),
                     trailing: IconButton(
                       icon: Icon(Icons.edit),
