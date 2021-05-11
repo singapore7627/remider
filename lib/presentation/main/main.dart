@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:reservation_manager/domain/recipe.dart';
 import 'package:reservation_manager/domain/reservation.dart';
 import 'package:reservation_manager/presentation/Login/Login_page.dart';
+import 'package:reservation_manager/presentation/add_recipe/add_recipe_page.dart';
 import 'package:reservation_manager/presentation/add_reservation/add_reservation_page.dart';
 import 'package:reservation_manager/presentation/main/main_model.dart';
 import 'package:reservation_manager/presentation/reservation_list/reservation_list_model.dart';
@@ -21,7 +22,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Firebase.initializeApp();
-    final items = List<String>.generate(10000, (i) => "Item $i");
 
     return MaterialApp(
       theme: ThemeData(
@@ -64,11 +64,11 @@ class MyApp extends StatelessWidget {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                                //     builder: (context) => AddRecipePage(
-                                //       recipe: recipe,
-                                //     ),
-                                //     fullscreenDialog: true,
-                                ),
+                              builder: (context) => AddRecipePage(
+                                recipe: recipe,
+                              ),
+                              fullscreenDialog: true,
+                            ),
                           );
                           model.fetchReservations();
                         },
@@ -117,7 +117,7 @@ class MyApp extends StatelessWidget {
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddReservationPage(),
+                      builder: (context) => AddRecipePage(),
                       fullscreenDialog: true,
                     ),
                   );

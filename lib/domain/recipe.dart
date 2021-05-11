@@ -7,8 +7,8 @@ class Recipe {
     title = doc.data()['title'];
     ingredient = doc.data()['ingredient'];
     process = doc.data()['precess'];
-    ingredientTemp = doc.data()['ingredient'];
-    processTemp = doc.data()['precess'];
+    ingredientTemp = doc.data()['ingredientTemp'];
+    processTemp = doc.data()['processTemp'];
     imageURL = doc.data()['imageURL'];
   }
 
